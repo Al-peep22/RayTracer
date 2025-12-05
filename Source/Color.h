@@ -2,6 +2,8 @@
 #include <SDL3/SDL.h>
 #include <glm/glm.hpp>
 #include <algorithm>
+#include "Ray.h"
+#include "Vector3.h"
 
 // use alias to clarify type name
 using color3_t = glm::vec3;
@@ -12,10 +14,10 @@ inline SDL_Color ColorConvert(const color4_t& color4)
 {
 	SDL_Color color;
 
-	color.r = 0; // convert color4 to SDL_Color color
-	color.g = 0; // convert color4 to SDL_Color color
-	color.b = 0; // convert color4 to SDL_Color color
-	color.a = 0; // convert color4 to SDL_Color color
+	color.r = (uint8_t)(std::clamp(color4.r, 0.0f, 1.0f) * 255);
+	color.g = (uint8_t)(std::clamp(color4.g, 0.0f, 1.0f) * 255);
+	color.b = (uint8_t)(std::clamp(color4.b, 0.0f, 1.0f) * 255);
+	color.a = (uint8_t)(std::clamp(color4.a, 0.0f, 1.0f) * 255);
 
 	return color;
 }
@@ -25,10 +27,10 @@ inline SDL_Color ColorConvert(const color3_t& color3)
 {
 	SDL_Color color;
 
-	color.r = 0; // convert color4 to SDL_Color color
-	color.g = 0; // convert color4 to SDL_Color color
-	color.b = 0; // convert color4 to SDL_Color color
-	color.a = 255;
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
+	color.a = 0;
 
 	return color;
 }
