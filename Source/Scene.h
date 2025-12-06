@@ -15,11 +15,11 @@ public:
 		this->skyTop = skyTop;
 	}
 
-	void AddObject(std::unique_ptr<class Object> object);
+	//void AddObject(std::unique_ptr<class Object> object);
 
 private:
 	// trace the ray into the scene
-	color3_t Trace(const struct ray_t& ray, float minDistance, float maxDistance);
+	color3_t Trace(const struct ray_t& ray);
 
 private:
 	color3_t skyBottom{ 1 };

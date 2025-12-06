@@ -1,4 +1,4 @@
-#include  "../Source/Camera.h"
+#include  "Camera.h"
 
 void Camera::SetView(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up) {
 	this->eye = eye;

@@ -27,10 +27,10 @@ inline SDL_Color ColorConvert(const color3_t& color3)
 {
 	SDL_Color color;
 
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
-	color.a = 0;
+	color.r = (uint8_t)(std::clamp(color3.r, 0.0f, 1.0f) * 255);
+	color.g = (uint8_t)(std::clamp(color3.g, 0.0f, 1.0f) * 255);
+	color.b = (uint8_t)(std::clamp(color3.b, 0.0f, 1.0f) * 255);
+	color.a = 255;
 
 	return color;
 }

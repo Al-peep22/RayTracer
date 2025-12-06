@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "Framebuffer.h"
 #include "Camera.h"
+#include "Scene.h"
 #include <SDL3/SDL.h>
 
 #include <iostream>
@@ -20,6 +21,9 @@ int main() {
 	Camera camera(70.0f, aspectRatio);
 	camera.SetView({ 0, 0, 5 }, { 0, 0, 0 });
 
+	Scene scene;
+	scene.SetSky({ 1.0f, 1.0f, 1.0f }, { 0.5f, 0.7f, 1.0f });
+
 	SDL_Event event;
 	bool quit = false;
 	while (!quit) {
@@ -35,9 +39,9 @@ int main() {
 			}
 		}
 
-		// draw to frame buffer
-		framebuffer.Clear({ 0, 0, 0, 255 });
-		for (int i = 0; i < 300; i++) framebuffer.DrawPoint(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, { 255, 255, 255, 255 });
+
+		scene.Render(framebuffer, camera);
+
 
 		// update frame buffer, copy buffer pixels to texture
 		framebuffer.Update();
