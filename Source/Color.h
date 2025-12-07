@@ -2,7 +2,6 @@
 #include <SDL3/SDL.h>
 #include <glm/glm.hpp>
 #include <algorithm>
-#include "Ray.h"
 #include "Vector3.h"
 
 // use alias to clarify type name

@@ -15,13 +15,15 @@ public:
 		this->skyTop = skyTop;
 	}
 
-	//void AddObject(std::unique_ptr<class Object> object);
+	void AddObject(std::shared_ptr<class Object> object);
 
 private:
 	// trace the ray into the scene
-	color3_t Trace(const struct ray_t& ray);
+	color3_t Trace(const struct ray_t& ray, float minDistance, float maxDistance, ray_t::raycastHit_t raycastHit);
 
 private:
 	color3_t skyBottom{ 1 };
 	color3_t skyTop{ 0.5f, 0.7f, 1.0f };
+
+	std::vector<std::shared_ptr<class Object>> objects;
 };
