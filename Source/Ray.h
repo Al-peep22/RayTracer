@@ -2,6 +2,8 @@
 #include "Color.h"
 #include <glm/glm.hpp>
 
+struct raycastHit_t;
+
 struct ray_t {
 
     glm::vec3 origin;
@@ -15,11 +17,13 @@ struct ray_t {
     }
     glm::vec3 operator * (float t) const { return origin + direction * t; }
 
-    struct raycastHit_t
-    {
-        glm::vec3 point{ 0.0f };
-        glm::vec3 normal{ 0.0f };
-        float distance{ 0.0f };
-        color3_t color;
-    };
+};
+
+struct raycastHit_t
+{
+    glm::vec3 point{ 0.0f };
+    glm::vec3 normal{ 0.0f };
+    float distance{ 0.0f };
+    //color3_t color;
+    class Material* material;
 };

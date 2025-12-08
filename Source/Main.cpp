@@ -25,9 +25,28 @@ int main() {
 
 	Scene scene;
 
-	for (int i = 0; i < 5; i++) {
+	auto red = std::make_shared<Lambertian>(color3_t{ 1.0f, 0.0f, 0.0f });
+	auto green = std::make_shared<Lambertian>(color3_t{ 0.0f, 1.0f, 0.0f });
+	auto blue = std::make_shared<Lambertian>(color3_t{ 0.0f, 0.0f, 1.0f });
+	auto light = std::make_shared<Emissive>(color3_t{ 1.0f, 1.0f, 1.0f }, 3.0f);
+	auto metal = std::make_shared<Metal>(color3_t{ 1.0f, 1.0f, 1.0f }, 0.0f);
+
+	std::vector<std::shared_ptr<Material>> materials = {
+	red, green, blue, light, metal
+	};
+
+
+	for (int i = 0; i < 15; i++)
+	{
 		glm::vec3 position = random::getReal(glm::vec3{ -3.0f }, glm::vec3{ 3.0f });
-		scene.AddObject(std::make_unique<Sphere>(position, 1.0f, color3_t{ 1, 0, 0 }));
+		float radius = random::getReal(0.2f, 1.0f);
+
+		int materialIndex = random::getInt(0, (int)materials.size() - 1);
+
+		std::shared_ptr<Object> sphere =
+			std::make_shared<Sphere>(position, radius, materials[materialIndex]);
+
+		scene.AddObject(sphere);
 	}
 
 	scene.SetSky({ 1.0f, 1.0f, 1.0f }, { 0.5f, 0.7f, 1.0f });

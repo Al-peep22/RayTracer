@@ -36,6 +36,9 @@
     <ClCompile Include="Source\Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Framebuffer.h">
@@ -45,9 +48,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Color.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Vector3.h">
@@ -69,6 +69,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Sphere.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Ray.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transform.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,13 +1,12 @@
 #include "Scene.h"
 #include "Framebuffer.h"
 #include "Camera.h"
+#include "Random.h"
 #include "Color.h"
 #include "Object.h"
-#include "Random.h"
 #include <iostream>
 
 void Scene::Render(Framebuffer& framebuffer, const Camera& camera, int numSamples) {
-    // trace ray for every framebuffer pixel
     for (int y = 0; y < framebuffer.height; y++) {
         for (int x = 0; x < framebuffer.width; x++) {
 
@@ -33,10 +32,10 @@ void Scene::Render(Framebuffer& framebuffer, const Camera& camera, int numSample
                 ray_t ray = camera.GetRay(point);
 
 
-                ray_t::raycastHit_t raycastHit;
+                raycastHit_t raycastHit;
 
 
-                color += Trace(ray, 0.0f, 100.0f, raycastHit);
+                color += Trace(ray, 0.0f, 100.0f, raycastHit, 5);
             }
 
 
@@ -52,37 +51,40 @@ void Scene::AddObject(std::shared_ptr<class Object> object) {
     objects.push_back(object);
 }
 
-color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, ray_t::raycastHit_t raycastHit)
+color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit, int maxDepth)
 {
+    if (maxDepth <= 0) return color3_t{ 0.0f };
+
     bool rayHit = false;
     float closestDistance = maxDistance;
+    raycastHit_t tempHit;
 
 
     for (auto& object : objects) {
-        if (object->Hit(ray, minDistance, closestDistance, raycastHit)) {
+        if (object->Hit(ray, minDistance, closestDistance, tempHit)) {
             rayHit = true;
-            closestDistance = raycastHit.distance;
+            closestDistance = tempHit.distance;
+            raycastHit = tempHit;
         }
     }
 
-    if (rayHit) {
 
-        color3_t normalColor = 0.5f * (raycastHit.normal + glm::vec3{ 1.0f, 1.0f, 1.0f });
+    if (rayHit && raycastHit.material) {
 
-
-        float shade = glm::clamp(1.0f - raycastHit.distance * 0.1f, 0.0f, 1.0f);
-        color3_t distanceColor = glm::vec3{ shade };
+        color3_t attenuation;
+        ray_t scattered;
 
 
-        return normalColor;
-        //return distanceColor;   
-
-
-        // return raycastHit.color;
+        if (raycastHit.material->Scatter(ray, raycastHit, attenuation, scattered)) {
+            return attenuation * Trace(scattered, minDistance, maxDistance, raycastHit, maxDepth - 1);
+        }
+        else {
+            return raycastHit.material->GetEmissive();
+        }
     }
 
 
-    glm::vec3 direction = glm::normalize(ray.direction);
-    float t = (direction.y + 1) * 0.5f;
+    glm::vec3 unitDir = glm::normalize(ray.direction);
+    float t = 0.5f * (unitDir.y + 1.0f);
     return glm::mix(skyBottom, skyTop, t);
 }

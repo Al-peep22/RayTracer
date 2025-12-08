@@ -152,4 +152,8 @@ namespace random {
         } while (glm::length2(v) > 1.0);
         return glm::normalize(inUnitSphere());
     }
+
+    inline glm::vec3 onUnitSphere() {
+        return glm::normalize(inUnitSphere());
+    }
 }

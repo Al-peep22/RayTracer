@@ -1,21 +1,16 @@
 #pragma once
 #include "Object.h"
-#include "Ray.h"
 #include <glm/glm.hpp>
 
-class Sphere : public Object
-{
+class Sphere : public Object {
 public:
-	Sphere() = default;
-	Sphere(const glm::vec3& position, float radius, const color3_t& color) :
-		Object(color),
-		position(position),
-		radius(radius)
-	{ }
+    Sphere(const glm::vec3& pos, float r, std::shared_ptr<Material> mat)
+        : Object(Transform{ pos }, mat), position(pos), radius(r) {
+    }
 
-	bool Hit(const ray_t& ray, float minDistance, float maxDistance, ray_t::raycastHit_t& raycastHit) override;
+    virtual bool Hit(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit) override;
 
-public:
-	glm::vec3 position;
-	float radius{ 0 };
+private:
+    glm::vec3 position;
+    float radius;
 };
