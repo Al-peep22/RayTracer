@@ -12,5 +12,5 @@ public:
 
 private:
     glm::vec3 position;
-    float radius;
+    float radius{0};
 };

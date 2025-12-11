@@ -35,7 +35,7 @@ void Scene::Render(Framebuffer& framebuffer, const Camera& camera, int numSample
                 raycastHit_t raycastHit;
 
 
-                color += Trace(ray, 0.0f, 100.0f, raycastHit, 5);
+                color += Trace(ray, 0.0001f, 100.0f, raycastHit, 20);
             }
 
 

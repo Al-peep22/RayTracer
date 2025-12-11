@@ -4,7 +4,7 @@
 
 bool Sphere::Hit(const ray_t & ray, float minDistance, float maxDistance, raycastHit_t & raycastHit)
 {
-    glm::vec3 oc = ray.origin - position;
+    glm::vec3 oc = ray.origin - transform.position;
 
     float a = glm::dot(ray.direction, ray.direction);
     float b = 2.0f * glm::dot(ray.direction, oc);
@@ -21,7 +21,7 @@ bool Sphere::Hit(const ray_t & ray, float minDistance, float maxDistance, raycas
     {
         raycastHit.distance = t;
         raycastHit.point = ray.at(t);
-        raycastHit.normal = (raycastHit.point - position) / radius;
+        raycastHit.normal = (raycastHit.point - transform.position) / radius;
         raycastHit.material = material.get();
         return true;
     }
@@ -32,7 +32,7 @@ bool Sphere::Hit(const ray_t & ray, float minDistance, float maxDistance, raycas
     {
         raycastHit.distance = t;
         raycastHit.point = ray.at(t);
-        raycastHit.normal = (raycastHit.point - position) / radius;
+        raycastHit.normal = (raycastHit.point - transform.position) / radius;
         raycastHit.material = material.get();
         return true;
     }
