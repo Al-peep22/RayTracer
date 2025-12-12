@@ -1,8 +1,11 @@
 #pragma once
+#define GLM_ENABLE_EXPERIMENTAL 
+#include <glm/gtx/color_space.hpp>
 #include <SDL3/SDL.h>
 #include <glm/glm.hpp>
 #include <algorithm>
 #include "Vector3.h"
+
 
 // use alias to clarify type name
 using color3_t = glm::vec3;
@@ -49,4 +52,14 @@ inline color4_t ColorConvert(const SDL_Color& color)
 	color4.a = 0; // convert SDL_Color color to color4
 
 	return color4;
+}
+
+inline color3_t HSVtoRGB(const glm::vec3& hsv)
+{
+	return glm::rgbColor(hsv);
+}
+
+inline color3_t HSVtoRGB(float hue, float saturation, float value)
+{
+	return glm::rgbColor(glm::vec3{ hue, saturation, value });
 }
