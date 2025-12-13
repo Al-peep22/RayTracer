@@ -15,6 +15,7 @@ This project is a **C++ ray tracer** built to simulate realistic lighting and ma
 - Multiple-bounce reflections and refractions
 - Support for spheres, planes, and mesh objects
 - Configurable camera and scene setup
+<img width="801" height="604" alt="AllBallsAndMaterials" src="https://github.com/user-attachments/assets/e8513c19-9add-4409-a440-921b826b423f" />
 
 ## Installation
 ### Requirements
