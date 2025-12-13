@@ -1,9 +1,4 @@
 
----
-
-## 🌌 README for Ray Tracer
-
-```markdown
 # Ray Tracer
 
 ## Introduction
